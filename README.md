@@ -1,4 +1,4 @@
-# Calculator Project (en)
+# Calculator Project - en
 
 This is a portfolio project. Where, use is made of the Python graphical library Tkinter.
 
@@ -12,7 +12,7 @@ This project contains the following arithmetic functions:
 * Subtraction
 
 
-# Proyecto Calculadora
+# Proyecto Calculadora - es
 
 Este es un proyecto de portafolio. Donde, se hace uso de la biblioteca gráfica de Python Tkinter.
 
