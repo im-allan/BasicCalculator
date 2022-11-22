@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import tkinter.ttk as ttk
 
 
 
@@ -10,15 +10,13 @@ class MainApplication(tk.Frame):
         self.parent = parent
     
 
-
-
-
-# --------------- Global Settings -----------------------------------
+# Global Settings 
 
         parent.title("Calculator")   
         parent.geometry("320x500")
 
-# ---------------- Grid Settings ------------------------------------
+
+# Grid Settings 
 
         frame = tk.Frame(root)
 
@@ -34,18 +32,21 @@ class MainApplication(tk.Frame):
         frame.columnconfigure(0, weight=1)
 
         
-# ---------------- Head ---------------------------------------------
-        label = tk.Label(frame, text="Lorem Ipsum", anchor="w", borderwidth=0)
-        label.config(font=("Microsoft Sans Serif", 14))
+# Head
+
+        label = tk.Label(frame, text="Lorem Ipsum", anchor="w", font=("Microsoft Sans Serif", 14), borderwidth=0)
         label.grid(row=0, column=2, columnspan=12, sticky="news")
 
-        history = tk.Entry(frame, borderwidth=0)
-        history.grid(row=1, column=0, columnspan=12, sticky="news")
-
-        display = tk.Entry(frame, borderwidth=0)
+        ttk.Style().configure('dis.TEntry', padding='0 0 10 0', borderwidth=0, border=0)
+        display = ttk.Entry(frame, font=("Microsoft Sans Serif", 24), justify= "right", style='dis.TEntry')
         display.grid(row=2, column=0, columnspan=12, sticky="news")
 
-# --------------- Functions -----------------------------------------
+        ttk.Style().configure('his.TEntry', padding='0 0 10 0', borderwidth=0, border=0)
+        history = ttk.Entry(frame, font=("Microsoft Sans Serif", 12), justify="right", style='dis.TEntry')
+        history.grid(row=1, column=0, columnspan=12, sticky="news")
+
+
+#  Functions 
 
         def get_operation(operator):
                 operator_length = len(operator)
@@ -56,14 +57,16 @@ class MainApplication(tk.Frame):
                 display.insert(MainApplication.i, n)
                 MainApplication.i+=1
 
+        def delete_character():
+                display.delete(len(display.get())-1)
 
 
-# # --------------- Numeric Buttons ----------------------------------------
+# Buttons 
 
         tk.Button(frame, text = "%", borderwidth=0, command=lambda: get_operation("%")).grid(row = 3, column = 0, columnspan=3, sticky="news")
         tk.Button(frame, text = "CE", borderwidth=0).grid(row = 3, column = 3, columnspan=3, sticky="news")
         tk.Button(frame, text = "C", borderwidth=0).grid(row = 3, column = 6, columnspan=3, sticky="news")
-        tk.Button(frame, text = "⌫", borderwidth=0).grid(row = 3, column = 9, columnspan=3, sticky="news")
+        tk.Button(frame, text = "⌫", borderwidth=0, command=lambda: delete_character()).grid(row = 3, column = 9, columnspan=3, sticky="news")
 
         tk.Button(frame, text = "¹∕×", borderwidth=0, command=lambda: get_operation("¹∕×")).grid(row = 4, column = 0, columnspan=3, sticky="news")
         tk.Button(frame, text = "×²", borderwidth=0, command=lambda: get_operation("×²")).grid(row = 4, column = 3, columnspan=3, sticky="news")
@@ -74,8 +77,6 @@ class MainApplication(tk.Frame):
         tk.Button(frame, text = "8", borderwidth=0, command=lambda: get_number(8)).grid(row = 5, column = 3, columnspan=3, sticky="news")
         tk.Button(frame, text = "9", borderwidth=0, command=lambda: get_number(9)).grid(row = 5, column = 6, columnspan=3, sticky="news")
         tk.Button(frame, text = "⨉", borderwidth=0).grid(row = 5, column = 9, columnspan=3, sticky="news")
-
-# # --------------- Arithmetic Buttons -------------------------------------------
 
         tk.Button(frame, text = "4", borderwidth=0, command=lambda: get_number(4)).grid(row = 5, column = 0, columnspan=3, sticky="news")
         tk.Button(frame, text = "5", borderwidth=0, command=lambda: get_number(5)).grid(row = 5, column = 3, columnspan=3, sticky="news")
@@ -93,38 +94,10 @@ class MainApplication(tk.Frame):
         tk.Button(frame, text = "=", borderwidth=0).grid(row = 7, column = 9, columnspan=3, sticky="news")
 
 
+# Responsive Design 
 
-
-
-
-
-
-
-
-
-
-
-
-
-# --------------- Responsive Design ---------------------------------
         frame.columnconfigure(tuple(range(12)), weight=1)
         frame.rowconfigure(tuple(range(8)), weight=1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
@@ -132,5 +105,3 @@ if __name__ == "__main__":
 
     MainApplication(root)
     root.mainloop()
-
-    # ÷÷⁘–⇚↩⇦⇚⇽−∻⋘⨞⪡
