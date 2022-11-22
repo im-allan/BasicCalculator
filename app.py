@@ -1,11 +1,17 @@
 import tkinter as tk
-from config import BUTTON_SIZE_VIEW
-# import ttk
+
+
+
 
 class MainApplication(tk.Frame):
+    i = 0
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
+    
+
+
+
 
 # --------------- Global Settings -----------------------------------
 
@@ -39,17 +45,27 @@ class MainApplication(tk.Frame):
         display = tk.Entry(frame, borderwidth=0)
         display.grid(row=2, column=0, columnspan=12, sticky="news")
 
+# --------------- Functions -----------------------------------------
+
+        def get_operation(operator):
+                operator_length = len(operator)
+                display.insert(MainApplication.i, operator)
+                MainApplication.i+=operator_length
+        
+
+
+
 # # --------------- Numeric Buttons ----------------------------------------
 
-        tk.Button(frame, text = "%", borderwidth=0).grid(row = 3, column = 0, columnspan=3, sticky="news")
+        tk.Button(frame, text = "%", borderwidth=0, command=lambda: get_operation("%")).grid(row = 3, column = 0, columnspan=3, sticky="news")
         tk.Button(frame, text = "CE", borderwidth=0).grid(row = 3, column = 3, columnspan=3, sticky="news")
         tk.Button(frame, text = "C", borderwidth=0).grid(row = 3, column = 6, columnspan=3, sticky="news")
         tk.Button(frame, text = "⌫", borderwidth=0).grid(row = 3, column = 9, columnspan=3, sticky="news")
 
-        tk.Button(frame, text = "¹∕×", borderwidth=0).grid(row = 4, column = 0, columnspan=3, sticky="news")
-        tk.Button(frame, text = "×²", borderwidth=0).grid(row = 4, column = 3, columnspan=3, sticky="news")
-        tk.Button(frame, text = "²√×", borderwidth=0).grid(row = 4, column = 6, columnspan=3, sticky="news")
-        tk.Button(frame, text = "÷", borderwidth=0).grid(row = 4, column = 9, columnspan=3, sticky="news")
+        tk.Button(frame, text = "¹∕×", borderwidth=0, command=lambda: get_operation("¹∕×")).grid(row = 4, column = 0, columnspan=3, sticky="news")
+        tk.Button(frame, text = "×²", borderwidth=0, command=lambda: get_operation("×²")).grid(row = 4, column = 3, columnspan=3, sticky="news")
+        tk.Button(frame, text = "²√×", borderwidth=0, command=lambda: get_operation("²√×")).grid(row = 4, column = 6, columnspan=3, sticky="news")
+        tk.Button(frame, text = "÷", borderwidth=0, command=lambda: get_operation("÷")).grid(row = 4, column = 9, columnspan=3, sticky="news")
 
         tk.Button(frame, text = "7", borderwidth=0).grid(row = 5, column = 0, columnspan=3, sticky="news")
         tk.Button(frame, text = "8", borderwidth=0).grid(row = 5, column = 3, columnspan=3, sticky="news")
@@ -72,15 +88,6 @@ class MainApplication(tk.Frame):
         tk.Button(frame, text = "0", borderwidth=0).grid(row = 7, column = 3, columnspan=3, sticky="news")
         tk.Button(frame, text = ",", borderwidth=0).grid(row = 7, column = 6, columnspan=3, sticky="news")
         tk.Button(frame, text = "=", borderwidth=0).grid(row = 7, column = 9, columnspan=3, sticky="news")
-        # tk.Button(frame, text = ")").grid(row = 5, column = 4, columnspan=3, sticky="news")
-        # tk.Button(frame, text = "=").grid(row = 6, column = 3, columnspan=3, sticky="news")
-
-
-
-
-
-
-
 
 
 
