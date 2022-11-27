@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import PhotoImage
 import utils
+import parser
 
 
 class HoverButtonOperator(tk.Button):
@@ -121,9 +122,49 @@ class MainApplication(tk.Frame):
 
             if len(display.get()) == 0:
                 display.insert(tk.END, 0)
+                history.delete(0, tk.END)
 
+        def clear_display():
+            display.delete(0, tk.END)
 
-# Buttons
+        def get_square(operator):
+            display_exp = display.get()
+
+            if display_exp == "0":
+                display.delete(0, tk.END)
+                display.insert(tk.END, 0)
+
+            elif len(display_exp) >= 1:
+                operator_length = len(operator)
+                display.insert(MainApplication.i, operator)
+                MainApplication.i += operator_length
+                get_result()
+                history.delete(0, tk.END)
+                history.insert(0, f"{display_exp}{operator} =")
+
+        def get_result():
+
+            display_state = display.get()
+
+            if "÷" in display_state:
+                display_state = display_state.replace("÷", "/")
+            elif "²" in display_state:
+                display_state = display_state.replace("²", "**2")
+            else:
+                display_state = display.get()
+
+            try:
+                math_expression = parser.expr(display_state).compile()
+                result = eval(math_expression)
+                clear_display()
+                history.delete(0, tk.END)
+                history.insert(0, f"{display_state} =")
+                display.insert(0, result)
+            except Exception:
+                clear_display()
+                history.delete(0, tk.END)
+                display.insert(0, "Error")
+                # Buttons
         percentage = PhotoImage(
             file=r"assets\percentage-32.png").subsample(2, 2)
         label_percentage = tk.Label(image=percentage)
@@ -153,7 +194,7 @@ class MainApplication(tk.Frame):
         label_square = tk.Label(image=square)
         label_square.image = square
         HoverButtonOperator(frame, image=square, borderwidth=0,
-                            command=lambda: get_operation("×²")).grid(row=4, column=3, columnspan=3, sticky="news", padx=1, pady=1)
+                            command=lambda: get_square("²")).grid(row=4, column=3, columnspan=3, sticky="news", padx=1, pady=1)
 
         square_root = PhotoImage(
             file=r"assets\square-root-67.png").subsample(3, 3)
@@ -213,7 +254,7 @@ class MainApplication(tk.Frame):
         equal = PhotoImage(file=r"assets\equal-32.png").subsample(2, 2)
         label_equal = tk.Label(image=equal)
         label_equal.image = equal
-        HoverButtonEqual(frame, image=equal, borderwidth=0).grid(
+        HoverButtonEqual(frame, image=equal, borderwidth=0, command=lambda: get_result()).grid(
             row=8, column=9, columnspan=3, sticky="news", padx=1, pady=1)
 
 
