@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import PhotoImage
 import utils
 import parser
+import math
+import re
 
 
 class MainApplication(tk.Frame):
@@ -79,21 +81,20 @@ class MainApplication(tk.Frame):
 
         def get_operation(operator):
             operator_length = len(operator)
-            display.insert(MainApplication.i, operator)
+            display.insert(tk.END, operator)
             MainApplication.i += operator_length
 
         def get_number(n):
             if display.get() == "0":
                 display.delete(0, tk.END)
-            display.insert(MainApplication.i, n)
+            display.insert(tk.END, n)
             MainApplication.i += 1
 
         def get_square(operator):
             display_exp = display.get()
 
             if display_exp == "0":
-                display.delete(0, tk.END)
-                display.insert(tk.END, 0)
+                pass
 
             elif len(display_exp) >= 1:
                 operator_length = len(operator)
@@ -103,6 +104,27 @@ class MainApplication(tk.Frame):
                 history.delete(0, tk.END)
                 history.insert(0, f"{display_exp}{operator} =")
 
+        def get_square_root(operator):
+            display_exp = display.get()
+
+            if display_exp == "0":
+                pass
+
+            elif len(display_exp) >= 1:
+
+                try:
+                    display.insert(0, operator)
+                    clear_display()
+                    display_entry = round(math.sqrt(int(display_exp)), 6)
+                    display.insert(0, display_entry)
+                    history.delete(0, tk.END)
+                    history.insert(0, f"{operator}{display_exp} =")
+                except Exception:
+                    clear_display()
+                    history.delete(0, tk.END)
+                    display.insert(0, "SyntaxError")
+
+
 # Result functions
 
         def get_result():
@@ -110,15 +132,17 @@ class MainApplication(tk.Frame):
             display_state = display.get()
 
             if "÷" in display_state:
-                display_state = display_state.replace("÷", "/")
+                display_entry = display_state.replace("÷", "/")
             elif "²" in display_state:
-                display_state = display_state.replace("²", "**2")
+                display_entry = display_state.replace("²", "**2")
+            # elif "²√" in display_state:
+
             else:
-                display_state = display.get()
+                display_entry = display.get()
 
             try:
-                math_expression = parser.expr(display_state).compile()
-                result = eval(math_expression)
+                math_expression = parser.expr(display_entry).compile()
+                result = round(eval(math_expression), 6)
                 clear_display()
                 history.delete(0, tk.END)
                 history.insert(0, f"{display_state} =")
@@ -167,7 +191,7 @@ class MainApplication(tk.Frame):
         label_square_root = tk.Label(image=square_root)
         label_square_root.image = square_root
         utils.HoverButtonOperator(frame, image=square_root, borderwidth=0,
-                                  command=lambda: get_operation("²√×")).grid(row=4, column=6, columnspan=3, sticky="news", padx=1, pady=1)
+                                  command=lambda: get_square_root("²√")).grid(row=4, column=6, columnspan=3, sticky="news", padx=1, pady=1)
 
         divide = PhotoImage(file=r"assets\divide-32.png").subsample(2, 2)
         label_divide = tk.Label(image=divide)
