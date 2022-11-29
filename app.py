@@ -17,7 +17,10 @@ class MainApplication(tk.Frame):
 
         parent.title("Calculator")
         parent.geometry("320x500")
-        icon = tk.PhotoImage(file=r"assets\calculator-ico.png")
+        icon = PhotoImage(
+            file=r"assets\calculator.png")
+        label_icon = tk.Label(image=icon)
+        label_icon.image = icon
         parent.iconphoto(True, icon)
 
 
@@ -78,7 +81,6 @@ class MainApplication(tk.Frame):
 
 
 # Getters functions
-
 
         def get_operation(operator):
             if history.get() in '=':
