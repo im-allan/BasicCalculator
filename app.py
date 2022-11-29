@@ -80,15 +80,22 @@ class MainApplication(tk.Frame):
 
 
         def get_operation(operator):
-            operator_length = len(operator)
-            display.insert(tk.END, operator)
-            MainApplication.i += operator_length
+            if history.get() in '=':
+                history.insert(0, f"{display.get()} {operator}")
+            else:
+                history.delete(0, tk.END)
+                history.insert(0, f"{display.get()} {operator}")
 
         def get_number(n):
             if display.get() == "0":
                 display.delete(0, tk.END)
-            display.insert(tk.END, n)
-            MainApplication.i += 1
+
+            if history.get() == '':
+                display.insert(tk.END, n)
+
+            elif history.get() != '':
+                display.delete(0, tk.END)
+                display.insert(tk.END, n)
 
         def get_square(operator):
             display_exp = display.get()
@@ -97,12 +104,10 @@ class MainApplication(tk.Frame):
                 pass
 
             elif len(display_exp) >= 1:
-                operator_length = len(operator)
-                display.insert(MainApplication.i, operator)
-                MainApplication.i += operator_length
-                get_result()
                 history.delete(0, tk.END)
-                history.insert(0, f"{display_exp}{operator} =")
+                history.insert(0, f"{display_exp}{operator}")
+                clear_display()
+                get_result()
 
         def get_square_root(operator):
             display_exp = display.get()
@@ -118,7 +123,7 @@ class MainApplication(tk.Frame):
                     display_entry = round(math.sqrt(int(display_exp)), 6)
                     display.insert(0, display_entry)
                     history.delete(0, tk.END)
-                    history.insert(0, f"{operator}{display_exp} =")
+                    history.insert(0, f"{operator} {display_exp} =")
                 except Exception:
                     clear_display()
                     history.delete(0, tk.END)
@@ -129,28 +134,43 @@ class MainApplication(tk.Frame):
 
         def get_result():
 
+            history_state = history.get()
             display_state = display.get()
-
-            if "÷" in display_state:
-                display_entry = display_state.replace("÷", "/")
-            elif "²" in display_state:
-                display_entry = display_state.replace("²", "**2")
-            # elif "²√" in display_state:
-
+            if "÷" in history_state:
+                history_entry = history_state.replace("÷", "/")
+            elif "²" in history_state:
+                history_entry = history_state.replace("²", "**2")
+            elif "×" in history_state:
+                history_entry = history_state.replace("×", "*")
             else:
-                display_entry = display.get()
+                history_entry = history.get()
 
             try:
-                math_expression = parser.expr(display_entry).compile()
-                result = round(eval(math_expression), 6)
-                clear_display()
-                history.delete(0, tk.END)
-                history.insert(0, f"{display_state} =")
+
+                if "**2" in history_entry == True:
+
+                    math_expression = parser.expr(
+                        history_entry).compile()
+                    result = round(eval(math_expression), 6)
+                    clear_display()
+                    history.delete(0, tk.END)
+                    history.insert(0, f"{history_state} =")
+
+                else:
+                    math_expression = parser.expr(
+                        history_entry + display_state).compile()
+
+                    result = round(eval(math_expression), 6)
+
+                    clear_display()
+                    history.delete(0, tk.END)
+                    history.insert(0, f"{history_state} {display_state} =")
+
                 display.insert(0, result)
             except Exception:
                 clear_display()
                 history.delete(0, tk.END)
-                display.insert(0, "Error")
+                display.insert(0, "SyntaxError")
 
 
 # Buttons
@@ -205,7 +225,7 @@ class MainApplication(tk.Frame):
                                 command=lambda: get_number(8)).grid(row=5, column=3, columnspan=3, sticky="news", padx=1, pady=1)
         utils.HoverButtonNumber(frame, text="9", borderwidth=0,
                                 command=lambda: get_number(9)).grid(row=5, column=6, columnspan=3, sticky="news", padx=1, pady=1)
-        utils.HoverButtonOperator(frame, text="⨉", borderwidth=0).grid(
+        utils.HoverButtonOperator(frame, text="⨉", borderwidth=0, command=lambda: get_operation("×")).grid(
             row=5, column=9, columnspan=3, sticky="news", padx=1, pady=1)
 
         utils.HoverButtonNumber(frame, text="4", borderwidth=0,
@@ -218,7 +238,7 @@ class MainApplication(tk.Frame):
         subtract = PhotoImage(file=r"assets\subtract-32.png").subsample(2, 2)
         label_subtract = tk.Label(image=subtract)
         label_subtract.image = subtract
-        utils.HoverButtonOperator(frame, image=subtract, borderwidth=0,).grid(
+        utils.HoverButtonOperator(frame, image=subtract, borderwidth=0, command=lambda: get_operation("-")).grid(
             row=6, column=9, columnspan=3, sticky="news", padx=1, pady=1)
 
         utils.HoverButtonNumber(frame, text="1", borderwidth=0,
@@ -231,7 +251,7 @@ class MainApplication(tk.Frame):
         addition = PhotoImage(file=r"assets\plus-32.png").subsample(2, 2)
         label_addition = tk.Label(image=addition)
         label_addition.image = addition
-        utils.HoverButtonOperator(frame, image=addition, borderwidth=0).grid(
+        utils.HoverButtonOperator(frame, image=addition, borderwidth=0, command=lambda: get_operation("+")).grid(
             row=7, column=9, columnspan=3, sticky="news", padx=1, pady=1)
 
         utils.HoverButtonNumber(frame, text="+/-", borderwidth=0).grid(row=8,
