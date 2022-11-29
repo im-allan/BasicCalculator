@@ -44,7 +44,7 @@ class MainApplication(tk.Frame):
         history.grid(row=1, column=0, columnspan=12,
                      sticky="ew", pady=0, ipady=0)
 
-        display = utils.CustomEntry(frame, font=("Roboto", 26), justify="right", bg="#271d21",
+        display = utils.CustomEntry(frame, font=("Roboto", 22), justify="right", bg="#271d21",
                                     fg="white", relief="flat", borderwidth=10, insertbackground="#271d21")
         display.insert(tk.END, 0)
         display.grid(row=2, column=0, columnspan=12, sticky="news", pady=1)
@@ -53,6 +53,7 @@ class MainApplication(tk.Frame):
 #  Functions
 
 # Clear functions
+
 
         def clear_display():
             display.delete(0, tk.END)
@@ -77,7 +78,6 @@ class MainApplication(tk.Frame):
 
 
 # Getters functions
-
 
         def get_operation(operator):
             if history.get() in '=':
@@ -129,6 +129,20 @@ class MainApplication(tk.Frame):
                     history.delete(0, tk.END)
                     display.insert(0, "SyntaxError")
 
+        def get_whole_part(operator):
+            display_exp = display.get()
+
+            try:
+                if display.get() >= 1:
+                    history.delete(0, tk.END)
+                    history.insert(0, f"{operator}({display_exp})")
+                    clear_display()
+                    get_result()
+
+            except Exception:
+                clear_display()
+                history.delete(0, tk.END)
+                display.insert(0, "Can't be divided by zero")
 
 # Result functions
 
@@ -148,6 +162,15 @@ class MainApplication(tk.Frame):
             try:
 
                 if "**2" in history_entry == True:
+
+                    math_expression = parser.expr(
+                        history_entry).compile()
+                    result = round(eval(math_expression), 6)
+                    clear_display()
+                    history.delete(0, tk.END)
+                    history.insert(0, f"{history_state} =")
+
+                if "1/" in history_entry == True:
 
                     math_expression = parser.expr(
                         history_entry).compile()
@@ -197,8 +220,8 @@ class MainApplication(tk.Frame):
         plus_x = PhotoImage(file=r"assets\one-slash-x.png").subsample(1, 2)
         label_plus_x = tk.Label(image=plus_x)
         label_plus_x.image = plus_x
-        utils.HoverButtonOperator(frame, image=plus_x, borderwidth=0, command=lambda: get_operation(
-            "¹∕×")).grid(row=4, column=0, columnspan=3, sticky="news", padx=1, pady=1)
+        utils.HoverButtonOperator(frame, image=plus_x, borderwidth=0, command=lambda: get_whole_part(
+            "1/")).grid(row=4, column=0, columnspan=3, sticky="news", padx=1, pady=1)
 
         square = PhotoImage(file=r"assets\square-67.png").subsample(3, 3)
         label_square = tk.Label(image=square)
