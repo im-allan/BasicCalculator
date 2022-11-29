@@ -180,6 +180,18 @@ class MainApplication(tk.Frame):
             except:
                 clear_entry()
 
+        def get_comma(operator):
+            display_exp = display.get()
+            try:
+                if display_exp:
+                    if "," not in display_exp:
+                        display.insert(tk.END, operator)
+                    else:
+                        pass
+            except:
+                clear_entry()
+
+
 # Result functions
 
         def get_result():
@@ -317,7 +329,7 @@ class MainApplication(tk.Frame):
                                                                                                      column=0, columnspan=3, sticky="news", padx=1, pady=1)
         utils.HoverButtonNumber(frame, text="0", borderwidth=0,
                                 command=lambda: get_number(0)).grid(row=8, column=3, columnspan=3, sticky="news", padx=1, pady=1)
-        utils.HoverButtonNumber(frame, text=",", borderwidth=0).grid(
+        utils.HoverButtonNumber(frame, text=".", borderwidth=0, command=lambda: get_comma(".")).grid(
             row=8, column=6, columnspan=3, sticky="news", padx=1, pady=1)
 
         equal = PhotoImage(file=r"assets\equal-32.png").subsample(2, 2)
