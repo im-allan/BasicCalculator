@@ -144,6 +144,31 @@ class MainApplication(tk.Frame):
                 history.delete(0, tk.END)
                 display.insert(0, "Can't be divided by zero")
 
+        def get_percentage():
+            history_exp = history.get()
+            try:
+                if len(history_exp) >= 1:
+                    display_exp = display.get()
+
+                    if display_exp != "0":
+                        n = [int(s)
+                             for s in history_exp.split() if s.isdigit()]
+                        percent = parser.expr(
+                            f"{n[0]} * {display_exp} / 100").compile()
+                        result = round(eval(percent), 6)
+                        history.delete(0, tk.END)
+                        history.insert(0, f"{history_exp} {result}")
+
+                        history_result = round(
+                            eval(parser.expr(history.get()).compile()), 6)
+                        display.delete(0, tk.END)
+                        display.insert(0, history_result)
+                else:
+                    clear_entry()
+            except:
+                clear_entry()
+
+
 # Result functions
 
         def get_result():
@@ -203,7 +228,7 @@ class MainApplication(tk.Frame):
         label_percentage = tk.Label(image=percentage)
         label_percentage.image = percentage
         utils.HoverButtonOperator(frame, image=percentage, borderwidth=0,
-                                  command=lambda: get_operation("%")).grid(row=3, column=0, columnspan=3, sticky="news", padx=1, pady=1)
+                                  command=lambda: get_percentage()).grid(row=3, column=0, columnspan=3, sticky="news", padx=1, pady=1)
 
         utils.HoverButtonOperator(frame, text="CE", borderwidth=0, command=lambda: clear_entry()).grid(
             row=3, column=3, columnspan=3, sticky="news", padx=1, pady=1)
