@@ -54,7 +54,6 @@ class MainApplication(tk.Frame):
 
 # Clear functions
 
-
         def clear_display():
             display.delete(0, tk.END)
 
@@ -78,6 +77,7 @@ class MainApplication(tk.Frame):
 
 
 # Getters functions
+
 
         def get_operation(operator):
             if history.get() in '=':
@@ -168,6 +168,17 @@ class MainApplication(tk.Frame):
             except:
                 clear_entry()
 
+        def change_sym():
+            display_exp = display.get()
+            try:
+                if len(display_exp) >= 1:
+                    if "-" not in display_exp:
+                        display.insert(0, "-")
+                    else:
+                        display.delete(0)
+
+            except:
+                clear_entry()
 
 # Result functions
 
@@ -302,8 +313,8 @@ class MainApplication(tk.Frame):
         utils.HoverButtonOperator(frame, image=addition, borderwidth=0, command=lambda: get_operation("+")).grid(
             row=7, column=9, columnspan=3, sticky="news", padx=1, pady=1)
 
-        utils.HoverButtonNumber(frame, text="+/-", borderwidth=0).grid(row=8,
-                                                                       column=0, columnspan=3, sticky="news", padx=1, pady=1)
+        utils.HoverButtonNumber(frame, text="+/-", borderwidth=0, command=lambda: change_sym()).grid(row=8,
+                                                                                                     column=0, columnspan=3, sticky="news", padx=1, pady=1)
         utils.HoverButtonNumber(frame, text="0", borderwidth=0,
                                 command=lambda: get_number(0)).grid(row=8, column=3, columnspan=3, sticky="news", padx=1, pady=1)
         utils.HoverButtonNumber(frame, text=",", borderwidth=0).grid(
