@@ -3,34 +3,79 @@
 
 ## Calculator Project - en
 
-This is a portfolio project. Where, use is made of the Python graphical library Tkinter.
+This is a portfolio project. Where, use is made of the Python 3.8 graphical library Tkinter.
 
 ### Functionality
 
 This project contains the following arithmetic functions:
 
+* Addition
+* Subtraction
 * Multiplication
 * Division
-* Addition
+* Exponentiation
+* Square root
+* Reverse sign
+* Percentage
+* Decimal point
+* Part of whole
 
-![](https://i.imgur.com/kmOzcu8.gif)
 
-* Subtraction
+
 
 
 ## Proyecto Calculadora - es
 
-Este es un proyecto de portafolio. Donde, se hace uso de la biblioteca gráfica de Python Tkinter.
+Este es un proyecto de portafolio. Donde, se hace uso de la biblioteca gráfica de Python 3.8 Tkinter.
+
+
+
+
+
 
 ### Funcionalidades
 
 Contiene las siguientes funcionalidades de aritmética:
 
+* Suma
+* Resta
 * Multiplicación
 * División
-* Suma
+* Exponenciación
+* Raíz cuadrada
+* Signo inverso
+* Porcentaje
+* Punto decimal
+* Parte de un entero
+
+## Performance - Demostración 
+
+A continuación se encuentra una breve demostración gráfica de la herramienta de software creada.
+
+<a name="addition"></a>
+
+### *Addition - Suma*
+
 
 ![](https://i.imgur.com/kmOzcu8.gif)
 
-* Resta
+
+
+<a name="exponentiation"></a>
+
+### *Exponentiation - Exponenciación*
+
+
+![](https://i.imgur.com/twoLQ9f.gif)
+
+
+
+
+<a name="percentage"></a>
+
+### *Percentage - Porcentaje*
+
+
+![](https://i.imgur.com/6agJFNJ.gif)
+
 
