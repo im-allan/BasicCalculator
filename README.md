@@ -12,7 +12,9 @@ This project contains the following arithmetic functions:
 * Multiplication
 * Division
 * Addition
-![](https://i.imgur.com/A2WRZxO.gif)
+
+![](https://i.imgur.com/kmOzcu8.gif)
+
 * Subtraction
 
 
@@ -27,6 +29,8 @@ Contiene las siguientes funcionalidades de aritmética:
 * Multiplicación
 * División
 * Suma
-![](https://i.imgur.com/A2WRZxO.gif)
+
+![](https://i.imgur.com/kmOzcu8.gif)
+
 * Resta
 
