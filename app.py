@@ -58,6 +58,7 @@ class MainApplication(tk.Frame):
 
 # Clear functions
 
+
         def clear_display():
             display.delete(0, tk.END)
 
@@ -81,6 +82,7 @@ class MainApplication(tk.Frame):
 
 
 # Getters functions
+
 
         def get_operation(operator):
             if history.get() in '=':
@@ -163,7 +165,7 @@ class MainApplication(tk.Frame):
                         history.insert(0, f"{history_exp} {result} =")
 
                         history_result = round(
-                            eval(parser.expr(history.get()).compile()), 6)
+                            eval(parser.expr(f"{history_exp} {result}").compile()), 6)
                         display.delete(0, tk.END)
                         display.insert(0, f"{history_result}")
                 else:
@@ -196,6 +198,7 @@ class MainApplication(tk.Frame):
 
 
 # Result functions
+
 
         def get_result():
 
