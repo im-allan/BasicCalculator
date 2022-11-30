@@ -160,12 +160,12 @@ class MainApplication(tk.Frame):
                             f"{n[0]} * {display_exp} / 100").compile()
                         result = round(eval(percent), 6)
                         history.delete(0, tk.END)
-                        history.insert(0, f"{history_exp} {result}")
+                        history.insert(0, f"{history_exp} {result} =")
 
                         history_result = round(
                             eval(parser.expr(history.get()).compile()), 6)
                         display.delete(0, tk.END)
-                        display.insert(0, f"{history_result} =")
+                        display.insert(0, f"{history_result}")
                 else:
                     clear_entry()
             except:
