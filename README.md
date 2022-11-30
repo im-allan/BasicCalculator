@@ -52,12 +52,14 @@ Contiene las siguientes funcionalidades de aritmética:
 
 A continuación se encuentra una breve demostración gráfica de la herramienta de software creada.
 
+> Below is a brief graphical demonstration of the created software tool.
+
 <a name="addition"></a>
 
 ### *Addition - Suma*
 
 
-![](https://i.imgur.com/kmOzcu8.gif)
+> ![](https://i.imgur.com/kmOzcu8.gif)
 
 
 
@@ -66,7 +68,7 @@ A continuación se encuentra una breve demostración gráfica de la herramienta 
 ### *Exponentiation - Exponenciación*
 
 
-![](https://i.imgur.com/twoLQ9f.gif)
+> ![](https://i.imgur.com/twoLQ9f.gif)
 
 
 
@@ -76,6 +78,6 @@ A continuación se encuentra una breve demostración gráfica de la herramienta 
 ### *Percentage - Porcentaje*
 
 
-![](https://i.imgur.com/6agJFNJ.gif)
+> ![](https://i.imgur.com/6agJFNJ.gif)
 
 
