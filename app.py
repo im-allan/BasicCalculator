@@ -3,7 +3,6 @@ from tkinter import PhotoImage
 import utils
 import parser
 import math
-import re
 
 
 class MainApplication(tk.Frame):
@@ -18,6 +17,11 @@ class MainApplication(tk.Frame):
 
         parent.title("Calculator")
         parent.geometry("320x500")
+        icon = PhotoImage(
+            file=r"assets\calculator.png")
+        label_icon = tk.Label(image=icon)
+        label_icon.image = icon
+        parent.iconphoto(True, icon)
 
 
 # Grid Settings
@@ -77,7 +81,6 @@ class MainApplication(tk.Frame):
 
 
 # Getters functions
-
 
         def get_operation(operator):
             if history.get() in '=':
@@ -162,7 +165,7 @@ class MainApplication(tk.Frame):
                         history_result = round(
                             eval(parser.expr(history.get()).compile()), 6)
                         display.delete(0, tk.END)
-                        display.insert(0, history_result)
+                        display.insert(0, f"{history_result} =")
                 else:
                     clear_entry()
             except:
